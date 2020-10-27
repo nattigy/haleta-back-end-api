@@ -1,20 +1,41 @@
-import dotenv from "dotenv";
+// import dotenv from "dotenv";
 import express from "express";
+// import bodyParser from "body-parser";
+// import cors from 'cors';
 import { ApolloServer } from "apollo-server-express";
-
-import mongoose from "mongoose";
 
 import "./utils/db";
 import schema from "./schema";
 
-dotenv.config();
+// dotenv.config();
 
 const app = express();
 
+// app.use(bodyParser.json());
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true
+};
+
+// app.use(cors({
+//   credentials: true,
+//   // origin: 'http://localhost:8000',
+// }));
+
+// app.use((req, res, next) => {
+// res.setHeader("Access-Control-Allow-Origin", "*");
+// res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+// res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//   if (req.method === "OPTIONS") {
+//     return res.sendStatus(200);
+//   }
+//   next();
+// });
+
 const server = new ApolloServer({
   schema,
-  cors: true,
-  playground: process.env.NODE_ENV === "development" ? true : false,
+  playground: true,
   introspection: true,
   tracing: true,
   path: "/",
@@ -23,18 +44,9 @@ const server = new ApolloServer({
 server.applyMiddleware({
   app,
   path: "/",
-  cors: true,
-  onHealthCheck: () =>
-    // eslint-disable-next-line no-undef
-    new Promise((resolve, reject) => {
-      if (mongoose.connection.readyState > 0) {
-        resolve();
-      } else {
-        reject();
-      }
-    }),
+  cors: corsOptions
 });
 
-app.listen({ port: process.env.PORT }, () => {
-  console.log(`🚀 Server listening on port ${process.env.PORT}`);
+app.listen({ port: 8000 }, () => {
+  console.log(`🚀 Server listening on port ${8000}`);
 });

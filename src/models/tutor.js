@@ -66,6 +66,14 @@ export const TutorSchema = new Schema(
             type: String,
             // required: true,
         },
+        startTime: {
+            type: String,
+            // required: true,
+        },
+        endTime: {
+            type: String,
+            // required: true,
+        },
         subjects: {
             type: [String],
             // required: true
@@ -74,10 +82,33 @@ export const TutorSchema = new Schema(
             type: [Number],
             // required: true
         },
-        location: {
+        workingDays: {
             type: [String],
             lowercase: true,
             // required: true
+        },
+        locations: {
+            type: [String],
+            lowercase: true,
+            // required: true
+        },
+        clientsWorkedWith: {
+            type: Number
+        },
+        currentClients: {
+            type: Number
+        },
+        totalHoursWorked: {
+            type: Number
+        },
+        totalAmountEarned: {
+            type: Number
+        },
+        rating: {
+            type: Number
+        },
+        availability: {
+            type: Boolean
         },
         jobs: {
             type: [
