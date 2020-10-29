@@ -7,90 +7,94 @@ export const TutorSchema = new Schema(
         firstName: {
             type: String,
             trim: true,
-            // required: true,
+            required: true,
         },
         middleName: {
             type: String,
             trim: true,
-            // required: true,
+            required: true,
         },
         lastName: {
             type: String,
             trim: true,
-            // required: true,
+            required: true,
+        },
+        fullName: {
+            type: String,
+            required: true,
         },
         profilePic: {
             type: String,
-            // required: true,
+            required: true,
         },
         email: {
             type: String,
             lowercase: true,
             trim: true,
             unique: true,
-            // required: true,
+            required: true,
         },
         phoneNumber: {
-            type: Number,
-            // required: true,
+            type: String,
+            required: true,
         },
         education: {
             type: String,
-            // required: true,
+            required: true,
         },
         university: {
             type: String,
-            // required: true,
+            required: true,
         },
         currentJobStatus: {
             type: String,
-            // required: true,
+            required: true,
         },
         pitch: {
             type: String,
-            // required: true,
+            required: true,
         },
         price: {
             type: Number,
-            // required: true,
+            required: true,
         },
         bankAccountNumber: {
             type: Number,
-            // required: true,
+            required: true,
         },
         bankAccountName: {
             type: String,
-            // required: true,
+            required: true,
         },
         serviceType: {
             type: String,
-            // required: true,
+            required: true,
         },
         startTime: {
             type: String,
-            // required: true,
+            required: true,
         },
         endTime: {
             type: String,
-            // required: true,
+            required: true,
         },
         subjects: {
             type: [String],
-            // required: true
+            required: true
         },
         gradeLevels: {
             type: [Number],
-            // required: true
+            required: true
         },
         workingDays: {
             type: [String],
             lowercase: true,
-            // required: true
+            required: true
         },
         locations: {
             type: [String],
             lowercase: true,
-            // required: true
+            required: true
         },
         clientsWorkedWith: {
             type: Number
