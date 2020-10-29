@@ -6,7 +6,7 @@ dotenv.config();
 mongoose.Promise = global.Promise;
 
 const connection = mongoose.connect(
-  "mongodb+srv://nattigy:WBlgKJDacalZ2oK5@cluster0.ifqtm.mongodb.net/haleta-tutors-db?retryWrites=true&w=majority",
+  process.env.MONGODB_URI,
   {
     autoIndex: true,
     reconnectTries: Number.MAX_VALUE,

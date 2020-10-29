@@ -1,4 +1,4 @@
-// import dotenv from "dotenv";
+import dotenv from "dotenv";
 import express from "express";
 // import bodyParser from "body-parser";
 // import cors from 'cors';
@@ -7,7 +7,7 @@ import { ApolloServer } from "apollo-server-express";
 import "./utils/db";
 import schema from "./schema";
 
-// dotenv.config();
+dotenv.config();
 
 const app = express();
 
@@ -35,7 +35,7 @@ const corsOptions = {
 
 const server = new ApolloServer({
   schema,
-  playground: true,
+  playground: process.env.NODE_ENV === "production" ? false : true,
   introspection: true,
   tracing: true,
   path: "/",
@@ -47,6 +47,6 @@ server.applyMiddleware({
   cors: corsOptions
 });
 
-app.listen({ port: 8000 }, () => {
-  console.log(`🚀 Server listening on port ${8000}`);
+app.listen({ port: process.env.PORT }, () => {
+  console.log(`🚀 Server listening on port ${process.env.PORT}`);
 });
