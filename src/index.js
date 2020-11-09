@@ -35,7 +35,7 @@ const corsOptions = {
 
 const server = new ApolloServer({
   schema,
-  playground: process.env.NODE_ENV === "production" ? false : true,
+  playground: true,
   introspection: true,
   tracing: true,
   path: "/",
