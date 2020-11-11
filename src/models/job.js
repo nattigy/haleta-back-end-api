@@ -6,42 +6,31 @@ export const JobSchema = new Schema(
     {
         customerName: {
             type: String,
-            // required: true,
         },
         phoneNumber: {
-            type: Number,
-            // required: true,
+            type: String,
         },
         location: {
             type: String,
-            // required: true,
-            lowercase: true
         },
         serverType: {
             type: String,
-            // required: true,
         },
         learningDays: [String],
         startTime: {
             type: String,
-            // required: true,
         },
         hoursPerDay: {
             type: Number,
-            // required: true,
         },
         pricePerHour: {
             type: Number,
-            // required: true,
         },
         tutorGender: {
             type: String,
-            // required: true,
-            trim: true
         },
         gradeLevel: {
             type: Number,
-            // required: true,
         },
         subjects: [String],
         dateStarted: Date,

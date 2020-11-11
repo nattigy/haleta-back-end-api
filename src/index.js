@@ -13,11 +13,6 @@ const app = express();
 
 // app.use(bodyParser.json());
 
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  credentials: true
-};
-
 // app.use(cors({
 //   credentials: true,
 //   // origin: 'http://localhost:8000',
@@ -44,7 +39,10 @@ const server = new ApolloServer({
 server.applyMiddleware({
   app,
   path: "/",
-  cors: corsOptions
+  cors: {
+    origin: 'http://localhost:3000',
+    credentials: true
+  }
 });
 
 app.listen({ port: process.env.PORT }, () => {

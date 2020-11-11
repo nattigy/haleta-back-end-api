@@ -7,94 +7,82 @@ export const TutorSchema = new Schema(
         firstName: {
             type: String,
             trim: true,
-            required: true,
         },
         middleName: {
             type: String,
             trim: true,
-            required: true,
         },
         lastName: {
             type: String,
             trim: true,
-            required: true,
         },
         fullName: {
-            type: String,
-            required: true,
+            type: [String],
+            index: true,
+        },
+        gender: {
+            type: [String],
+            index: true,
         },
         profilePic: {
             type: String,
-            required: true,
         },
         email: {
             type: String,
-            lowercase: true,
             trim: true,
             unique: true,
-            required: true,
         },
         phoneNumber: {
             type: String,
-            required: true,
         },
         education: {
             type: String,
-            required: true,
         },
         university: {
             type: String,
-            required: true,
         },
         currentJobStatus: {
-            type: String,
-            required: true,
+            type: [String],
+            index: true,
         },
         pitch: {
             type: String,
-            required: true,
         },
         price: {
             type: Number,
-            required: true,
+            index: true,
         },
         bankAccountNumber: {
             type: Number,
-            required: true,
         },
         bankAccountName: {
             type: String,
-            required: true,
         },
         serviceType: {
-            type: String,
-            required: true,
-        },
-        startTime: {
-            type: String,
-            required: true,
-        },
-        endTime: {
-            type: String,
-            required: true,
+            type: [String],
+            index: true,
         },
         subjects: {
             type: [String],
-            required: true
+            index: true,
         },
         gradeLevels: {
             type: [Number],
-            required: true
+            index: true,
         },
         workingDays: {
             type: [String],
-            lowercase: true,
-            required: true
+            index: true,
         },
         locations: {
             type: [String],
-            lowercase: true,
-            required: true
+            index: true,
+        },
+        startTime: {
+            type: String
+        },
+        endTime: {
+            type: String
         },
         clientsWorkedWith: {
             type: Number
@@ -109,7 +97,8 @@ export const TutorSchema = new Schema(
             type: Number
         },
         rating: {
-            type: Number
+            type: Number,
+            index: true,
         },
         availability: {
             type: Boolean
