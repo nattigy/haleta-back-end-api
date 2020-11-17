@@ -40,7 +40,7 @@ server.applyMiddleware({
   app,
   path: "/",
   cors: {
-    origin: 'http://localhost:3000',
+    origin: 'https://admin.haletatutors.com',
     credentials: true
   }
 });

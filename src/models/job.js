@@ -2,6 +2,8 @@ import mongoose, { Schema } from 'mongoose';
 import timestamps from 'mongoose-timestamp';
 import { composeWithMongoose } from 'graphql-compose-mongoose';
 
+import ChildSchema from "./child";
+
 export const JobSchema = new Schema(
     {
         customerName: {
@@ -13,11 +15,16 @@ export const JobSchema = new Schema(
         location: {
             type: String,
         },
-        serverType: {
+        serviceType: {
             type: String,
         },
-        learningDays: [String],
+        learningDays: {
+            type: [String]
+        },
         startTime: {
+            type: String,
+        },
+        forWho: {
             type: String,
         },
         hoursPerDay: {
@@ -26,14 +33,28 @@ export const JobSchema = new Schema(
         pricePerHour: {
             type: Number,
         },
+        focusPoint: {
+            type: String,
+        },
+        ageRange: {
+            type: String
+        },
+        educationLevel: {
+            type: String
+        },
         tutorGender: {
             type: String,
         },
-        gradeLevel: {
+        dateStarted: {
+            type: Date
+        },
+        numberOfChildren: {
             type: Number,
         },
-        subjects: [String],
-        dateStarted: Date,
+        children: {
+            type: [ChildSchema],
+            default: [],
+        },
         payments: [
             {
                 type: Schema.Types.ObjectId,
