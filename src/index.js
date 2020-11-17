@@ -39,7 +39,7 @@ const server = new ApolloServer({
 server.applyMiddleware({
   app,
   path: "/",
-  cors: false
+  cors: 'no-cors'
 });
 
 app.listen({ port: process.env.PORT }, () => {
