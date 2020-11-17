@@ -4,6 +4,9 @@ import { composeWithMongoose } from 'graphql-compose-mongoose';
 
 export const TutorSchema = new Schema(
     {
+        firebaseID: {
+            type: String,
+        },
         firstName: {
             type: String,
             trim: true,
@@ -32,6 +35,9 @@ export const TutorSchema = new Schema(
             trim: true,
             unique: true,
         },
+        status: {
+            type: Boolean,
+        },
         phoneNumber: {
             type: String,
         },
@@ -52,8 +58,24 @@ export const TutorSchema = new Schema(
             type: Number,
             index: true,
         },
-        bankAccountNumber: {
+        priceForG1_4: {
             type: Number,
+            index: true
+        },
+        priceForG5_8: {
+            type: Number,
+            index: true
+        },
+        priceForG9_10: {
+            type: Number,
+            index: true
+        },
+        priceForG11_12: {
+            type: Number,
+            index: true
+        },
+        bankAccountNumber: {
+            type: String,
         },
         bankAccountName: {
             type: String,
