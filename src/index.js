@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 // import bodyParser from "body-parser";
-// import cors from 'cors';
+import cors from 'cors';
 import { ApolloServer } from "apollo-server-express";
 
 import "./utils/db";
@@ -39,10 +39,7 @@ const server = new ApolloServer({
 server.applyMiddleware({
   app,
   path: "/",
-  cors: {
-    origin: 'https://admin.haletatutors.com',
-    credentials: true
-  }
+  cors: cors()
 });
 
 app.listen({ port: process.env.PORT }, () => {
