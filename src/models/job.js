@@ -51,19 +51,27 @@ export const JobSchema = new Schema(
         numberOfChildren: {
             type: Number,
         },
+        status: {
+            type: String,
+            enum: ['Done', 'Canceled', 'TutorAssinged']
+        },
         children: {
             type: [ChildSchema],
             default: [],
         },
-        payments: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Payment'
-            }
-        ],
+        payments: {
+            type: [
+                {
+                    type: Schema.Types.ObjectId,
+                    ref: 'Payment',
+                }
+            ],
+            index: true
+        },
         assignedTutor: {
             type: Schema.Types.ObjectId,
-            ref: 'Tutor'
+            ref: 'Tutor',
+            index: true
         }
     },
     {

@@ -17,7 +17,7 @@ export const PaymentSchema = new Schema(
             default: false
         },
         amount: {
-            type: Boolean,
+            type: Number,
         },
         refNumber: {
             type: String,
