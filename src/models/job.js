@@ -37,7 +37,7 @@ export const JobSchema = new Schema(
             type: Number,
         },
         focusPoint: {
-            type: String,
+            type: [String],
         },
         ageRange: {
             type: String
