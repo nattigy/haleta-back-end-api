@@ -1,4 +1,5 @@
 import { TutorTC } from '../models/tutor';
+import { JobTC } from '../models/job';
 
 const TutorQuery = {
     tutorById: TutorTC.getResolver('findById'),
@@ -8,6 +9,16 @@ const TutorQuery = {
     tutorCount: TutorTC.getResolver('count'),
     tutorConnection: TutorTC.getResolver('connection'),
     tutorPagination: TutorTC.getResolver('pagination'),
+    tutorJobs: TutorTC.addRelation(
+        'jobs',
+        {
+            resolver: () => JobTC.getResolver('findByIds'),
+            prepareArgs: {
+                _ids: (source) => source.jobs,
+            },
+            projection: { jobs: 1 },
+        }
+    ),
 };
 
 const TutorMutation = {

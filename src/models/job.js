@@ -24,6 +24,9 @@ export const JobSchema = new Schema(
         startTime: {
             type: String,
         },
+        startDate: {
+            type: Date,
+        },
         forWho: {
             type: String,
         },
@@ -53,7 +56,7 @@ export const JobSchema = new Schema(
         },
         status: {
             type: String,
-            enum: ['Done', 'Canceled', 'TutorAssinged']
+            enum: ['Done', 'Canceled', 'TutorAssinged', 'TutorNOTAssinged']
         },
         children: {
             type: [ChildSchema],
