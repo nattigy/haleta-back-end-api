@@ -6,6 +6,7 @@ export const TutorSchema = new Schema(
     {
         firebaseID: {
             type: String,
+            unique: true,
         },
         firstName: {
             type: String,
@@ -43,6 +44,12 @@ export const TutorSchema = new Schema(
         },
         education: {
             type: String,
+        },
+        g12Result: {
+            type: Number
+        },
+        g10Result: {
+            type: Number
         },
         university: {
             type: String,
