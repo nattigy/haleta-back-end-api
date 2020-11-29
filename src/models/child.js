@@ -15,7 +15,8 @@ export const ChildSchema = new Schema(
             type: Number,
         },
         subjects: {
-            type: [String]
+            type: [String],
+            default: []
         },
         dateStarted: {
             type: Date

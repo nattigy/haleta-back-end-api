@@ -69,12 +69,10 @@ export const JobSchema = new Schema(
                     ref: 'Payment',
                 }
             ],
-            index: true
         },
         assignedTutor: {
             type: Schema.Types.ObjectId,
             ref: 'Tutor',
-            index: true
         }
     },
     {
