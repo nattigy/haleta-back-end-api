@@ -51,12 +51,15 @@ export const JobSchema = new Schema(
         dateStarted: {
             type: Date
         },
+        dateFinished: {
+            type: Date
+        },
         numberOfChildren: {
             type: Number,
         },
         status: {
             type: String,
-            enum: ['Done', 'Canceled', 'TutorAssinged', 'TutorNOTAssinged']
+            enum: ['Done', 'Canceled', 'Started', 'New']
         },
         children: {
             type: [ChildSchema],
