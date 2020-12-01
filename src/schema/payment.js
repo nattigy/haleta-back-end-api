@@ -1,4 +1,5 @@
 import { PaymentTC } from '../models/payment';
+import { JobTC } from '../models/job';
 
 const PaymentQuery = {
     paymentById: PaymentTC.getResolver('findById'),
@@ -8,6 +9,16 @@ const PaymentQuery = {
     paymentCount: PaymentTC.getResolver('count'),
     paymentConnection: PaymentTC.getResolver('connection'),
     paymentPagination: PaymentTC.getResolver('pagination'),
+    paymentJob: PaymentTC.addRelation(
+        'job',
+        {
+            resolver: () => JobTC.getResolver('findById'),
+            prepareArgs: {
+                _id: (source) => source.job,
+            },
+            projection: { job: 1 },
+        }
+    ),
 };
 
 const PaymentMutation = {
