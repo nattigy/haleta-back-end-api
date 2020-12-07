@@ -16,7 +16,16 @@ export const PaymentSchema = new Schema(
             type: Boolean,
             default: false
         },
+        totalHours: {
+            type: Number
+        },
         amount: {
+            type: Number,
+        },
+        ourCut: {
+            type: Number,
+        },
+        netPayment: {
             type: Number,
         },
         refNumber: {
