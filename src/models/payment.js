@@ -31,9 +31,6 @@ export const PaymentSchema = new Schema(
         paidAt: {
             type: Date,
         },
-        nextPayment: {
-            type: Date,
-        },
         job: {
             type: Schema.Types.ObjectId,
             ref: 'Job'

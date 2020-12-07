@@ -54,6 +54,9 @@ export const JobSchema = new Schema(
         dateFinished: {
             type: Date
         },
+        nextPayment: {
+            type: Date,
+        },
         numberOfChildren: {
             type: Number,
         },
