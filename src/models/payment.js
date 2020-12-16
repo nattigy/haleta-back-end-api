@@ -36,6 +36,7 @@ export const PaymentSchema = new Schema(
     },
     depositedAt: {
       type: Date,
+      index: true,
     },
     paidAt: {
       type: Date,
