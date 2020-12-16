@@ -40,7 +40,7 @@ export const PaymentSchema = new Schema(
     paidAt: {
       type: Date,
     },
-    nextPaymentAt: {
+    paymentAt: {
       type: Date,
       index: true,
     },
