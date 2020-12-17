@@ -9,8 +9,9 @@ export const PaymentSchema = new Schema(
       trim: true,
     },
     deposited: {
-      type: Boolean,
-      default: false,
+      type: String,
+      default: "NOT_DEPOSITED",
+      enum: ["NOT_DEPOSITED", "HALF", "FULL"],
     },
     tutorPaid: {
       type: Boolean,
