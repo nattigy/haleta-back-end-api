@@ -42,9 +42,6 @@ export const PaymentSchema = new Schema(
       type: [ReferenceSchema],
       default: [],
     },
-    bankAccountName: {
-      type: String,
-    },
     depositedAt: {
       type: Date,
       index: true,
