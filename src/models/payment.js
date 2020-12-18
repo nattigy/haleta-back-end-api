@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import timestamps from "mongoose-timestamp";
 import { composeWithMongoose } from "graphql-compose-mongoose";
 
-export const ReferanceSchema = new Schema({
+export const ReferenceSchema = new Schema({
   refNumber: {
     type: String,
   },
@@ -39,7 +39,7 @@ export const PaymentSchema = new Schema(
       type: Number,
     },
     reference: {
-      type: [ReferanceSchema],
+      type: [ReferenceSchema],
       default: [],
     },
     bankAccountName: {
