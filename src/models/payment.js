@@ -2,25 +2,11 @@ import mongoose, { Schema } from "mongoose";
 import timestamps from "mongoose-timestamp";
 import { composeWithMongoose } from "graphql-compose-mongoose";
 
-export const ReferenceSchema = new Schema({
-  refNumber: {
-    type: String,
-  },
-  bankAccountName: {
-    type: String,
-  },
-});
-
 export const PaymentSchema = new Schema(
   {
     month: {
       type: String,
       trim: true,
-    },
-    deposited: {
-      type: String,
-      default: "NOT_DEPOSITED",
-      enum: ["NOT_DEPOSITED", "HALF", "FULL"],
     },
     tutorPaid: {
       type: Boolean,
@@ -37,10 +23,6 @@ export const PaymentSchema = new Schema(
     },
     netPayment: {
       type: Number,
-    },
-    reference: {
-      type: [ReferenceSchema],
-      default: [],
     },
     depositedAt: {
       type: Date,
