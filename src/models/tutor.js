@@ -67,8 +67,29 @@ export const TutorSchema = new Schema(
     pitch: {
       type: String,
     },
-    price: {
-      type: [PriceTypesSchema],
+    price: [PriceTypesSchema],
+    priceForElementary: {
+      type: Number,
+      index: true,
+    },
+    priceForMiddleSchool: {
+      type: Number,
+      index: true,
+    },
+    priceForHighSchool: {
+      type: Number,
+      index: true,
+    },
+    priceForPreparatory: {
+      type: Number,
+      index: true,
+    },
+    priceForCollege: {
+      type: Number,
+      index: true,
+    },
+    priceForAdult: {
+      type: Number,
       index: true,
     },
     priceForG1_4: {
@@ -102,7 +123,7 @@ export const TutorSchema = new Schema(
       index: true,
     },
     gradeLevels: {
-      type: Number,
+      type: [Number],
       index: true,
     },
     newGradeLevels: {
