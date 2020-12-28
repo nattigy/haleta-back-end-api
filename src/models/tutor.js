@@ -2,12 +2,6 @@ import mongoose, { Schema } from "mongoose";
 import timestamps from "mongoose-timestamp";
 import { composeWithMongoose } from "graphql-compose-mongoose";
 
-const PriceTypesSchema = new Schema({
-  gradeLevel: String,
-  serviceType: String,
-  price: String,
-});
-
 export const TutorSchema = new Schema(
   {
     firebaseID: {
@@ -67,7 +61,6 @@ export const TutorSchema = new Schema(
     pitch: {
       type: String,
     },
-    price: [PriceTypesSchema],
     priceForElementary: {
       type: Number,
       index: true,
