@@ -5,7 +5,7 @@ import { composeWithMongoose } from "graphql-compose-mongoose";
 const PriceTypesSchema = new Schema({
   gradeLevel: String,
   serviceType: String,
-  price: Number,
+  price: String,
 });
 
 export const TutorSchema = new Schema(
