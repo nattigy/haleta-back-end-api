@@ -113,6 +113,9 @@ export const TutorSchema = new Schema(
       type: [String],
       index: true,
     },
+    yourLocation: {
+      type: String,
+    },
     locations: {
       type: [String],
       index: true,
