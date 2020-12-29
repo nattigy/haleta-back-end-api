@@ -8,7 +8,7 @@ export const ChildSchema = new Schema({
     type: Number,
   },
   gradeLevel: {
-    type: Number,
+    type: String,
   },
   subjects: {
     type: [String],
