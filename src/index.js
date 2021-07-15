@@ -30,7 +30,7 @@ const app = express();
 
 const server = new ApolloServer({
   schema,
-  playground: true,
+  playground: false,
   introspection: true,
   tracing: true,
   path: "/",
