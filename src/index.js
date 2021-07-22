@@ -13,25 +13,10 @@ const app = express();
 
 // app.use(bodyParser.json());
 
-// app.use(cors({
-//   credentials: true,
-//   // origin: 'http://localhost:8000',
-// }));
-
-// app.use((req, res, next) => {
-// res.setHeader("Access-Control-Allow-Origin", "*");
-// res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
-// res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-//   if (req.method === "OPTIONS") {
-//     return res.sendStatus(200);
-//   }
-//   next();
-// });
-
 const server = new ApolloServer({
   schema,
   playground: false,
-  introspection: true,
+  introspection: false,
   tracing: true,
   path: "/",
 });
