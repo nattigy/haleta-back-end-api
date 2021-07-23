@@ -15,8 +15,8 @@ const app = express();
 
 const server = new ApolloServer({
   schema,
-  playground: false,
-  introspection: false,
+  playground: true,
+  introspection: true,
   tracing: true,
   path: "/",
 });
