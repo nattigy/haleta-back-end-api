@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, {Schema} from "mongoose";
 import timestamps from "mongoose-timestamp";
-import { composeWithMongoose } from "graphql-compose-mongoose";
+import {composeWithMongoose} from "graphql-compose-mongoose";
 
 export const PaymentSchema = new Schema(
   {
@@ -20,6 +20,10 @@ export const PaymentSchema = new Schema(
     },
     ourCut: {
       type: Number,
+    },
+    discount: {
+      type: Number,
+      default: 0
     },
     netPayment: {
       type: Number,
@@ -47,7 +51,7 @@ export const PaymentSchema = new Schema(
 
 PaymentSchema.plugin(timestamps);
 
-PaymentSchema.index({ createdAt: 1, updatedAt: 1 });
+PaymentSchema.index({createdAt: 1, updatedAt: 1});
 
 export const Payment = mongoose.model("Payment", PaymentSchema);
 export const PaymentTC = composeWithMongoose(Payment);

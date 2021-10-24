@@ -1,8 +1,25 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, {Schema} from "mongoose";
 import timestamps from "mongoose-timestamp";
-import { composeWithMongoose } from "graphql-compose-mongoose";
+import {composeWithMongoose} from "graphql-compose-mongoose";
 
-import ChildSchema from "./child";
+const ChildSchema = new Schema({
+  hoursPerDay: {
+    type: Number,
+  },
+  pricePerHour: {
+    type: Number,
+  },
+  gradeLevel: {
+    type: String,
+  },
+  subjects: {
+    type: [String],
+    default: [],
+  },
+  dateStarted: {
+    type: Date,
+  },
+});
 
 export const JobSchema = new Schema(
   {
@@ -88,7 +105,7 @@ export const JobSchema = new Schema(
 
 JobSchema.plugin(timestamps);
 
-JobSchema.index({ createdAt: 1, updatedAt: 1 });
+JobSchema.index({createdAt: 1, updatedAt: 1});
 
 export const Job = mongoose.model("Job", JobSchema);
 export const JobTC = composeWithMongoose(Job);

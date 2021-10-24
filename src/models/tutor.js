@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, {Schema} from "mongoose";
 import timestamps from "mongoose-timestamp";
-import { composeWithMongoose } from "graphql-compose-mongoose";
+import {composeWithMongoose} from "graphql-compose-mongoose";
 
 export const TutorSchema = new Schema(
   {
@@ -61,51 +61,15 @@ export const TutorSchema = new Schema(
     pitch: {
       type: String,
     },
-    priceForElementary: {
-      type: Number,
-      index: true,
-    },
-    priceForMiddleSchool: {
-      type: Number,
-      index: true,
-    },
-    priceForHighSchool: {
-      type: Number,
-      index: true,
-    },
-    priceForPreparatory: {
-      type: Number,
-      index: true,
-    },
-    priceForCollege: {
-      type: Number,
-      index: true,
-    },
-    priceForAdult: {
-      type: Number,
-      index: true,
-    },
-    priceForG1_4: {
-      type: Number,
-      index: true,
-    },
-    priceForG5_8: {
-      type: Number,
-      index: true,
-    },
-    priceForG9_10: {
-      type: Number,
-      index: true,
-    },
-    priceForG11_12: {
-      type: Number,
-      index: true,
-    },
-    bankAccountNumber: {
-      type: String,
-    },
-    bankAccountName: {
-      type: String,
+    bankInfo: {
+      type: {
+        bankName: {
+          type: String,
+        },
+        accountNumber: {
+          type: String,
+        },
+      }
     },
     serviceType: {
       type: [String],
@@ -178,7 +142,7 @@ export const TutorSchema = new Schema(
 
 TutorSchema.plugin(timestamps);
 
-TutorSchema.index({ createdAt: 1, updatedAt: 1 });
+TutorSchema.index({createdAt: 1, updatedAt: 1});
 
 export const Tutor = mongoose.model("Tutor", TutorSchema);
 export const TutorTC = composeWithMongoose(Tutor);
