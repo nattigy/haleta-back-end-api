@@ -2,6 +2,15 @@ import mongoose, {Schema} from "mongoose";
 import timestamps from "mongoose-timestamp";
 import {composeWithMongoose} from "graphql-compose-mongoose";
 
+const bankInfoSchema = new Schema({
+  bankName: {
+    type: String,
+  },
+  accountNumber: {
+    type: String,
+  },
+});
+
 export const TutorSchema = new Schema(
   {
     firebaseID: {
@@ -62,14 +71,7 @@ export const TutorSchema = new Schema(
       type: String,
     },
     bankInfo: {
-      type: {
-        bankName: {
-          type: String,
-        },
-        accountNumber: {
-          type: String,
-        },
-      }
+      type: bankInfoSchema
     },
     serviceType: {
       type: [String],
