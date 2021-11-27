@@ -74,6 +74,12 @@ export const JobSchema = new Schema(
     nextPayment: {
       type: Date,
     },
+    nextCall: {
+      type: Date,
+    },
+    callFor: {
+      type: Boolean,
+    },
     numberOfChildren: {
       type: Number,
     },
