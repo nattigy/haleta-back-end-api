@@ -76,6 +76,7 @@ export const JobSchema = new Schema(
     },
     nextCall: {
       type: Date,
+      index: true
     },
     callFor: {
       type: Boolean,
