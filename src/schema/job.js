@@ -1,4 +1,4 @@
-import {JobTC} from '../models/job';
+import {JobTC, Job} from '../models/job';
 import {PaymentTC} from '../models/payment';
 import {TutorTC} from '../models/tutor';
 
@@ -32,6 +32,24 @@ const JobQuery = {
   )
 };
 
+const jobsFix = {
+  name: "jobsFix",
+  kind: "mutation",
+  type: JobTC,
+  args: {},
+  resolve: async () => {
+    const jobs = await Job.find();
+    for (let i = 0; i < jobs.length; i++) {
+      await Job.findByIdAndUpdate(jobs[i]._id, {
+        nextCall: jobs[i].nextPayment,
+        callFor: true
+      });
+    }
+  },
+};
+
+JobTC.addResolver(jobsFix);
+
 const JobMutation = {
   jobCreateOne: JobTC.getResolver('createOne'),
   jobCreateMany: JobTC.getResolver('createMany'),
@@ -41,6 +59,7 @@ const JobMutation = {
   jobRemoveById: JobTC.getResolver('removeById'),
   jobRemoveOne: JobTC.getResolver('removeOne'),
   jobRemoveMany: JobTC.getResolver('removeMany'),
+  jobsFix: JobTC.getResolver('jobsFix'),
 };
 
 export {JobQuery, JobMutation};
