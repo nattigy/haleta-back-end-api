@@ -59,7 +59,7 @@ const JobMutation = {
   jobRemoveById: JobTC.getResolver('removeById'),
   jobRemoveOne: JobTC.getResolver('removeOne'),
   jobRemoveMany: JobTC.getResolver('removeMany'),
-  jobsFix: JobTC.getResolver('jobsFix'),
+  // jobsFix: JobTC.getResolver('jobsFix'),
 };
 
 export {JobQuery, JobMutation};
