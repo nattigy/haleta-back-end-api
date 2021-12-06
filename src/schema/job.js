@@ -42,7 +42,7 @@ const jobsFix = {
     for (let i = 0; i < jobs.length; i++) {
       await Job.findByIdAndUpdate(jobs[i]._id, {
         nextCall: jobs[i].nextPayment,
-        callFor: true
+        callForPayment: true
       });
     }
   },
@@ -59,7 +59,7 @@ const JobMutation = {
   jobRemoveById: JobTC.getResolver('removeById'),
   jobRemoveOne: JobTC.getResolver('removeOne'),
   jobRemoveMany: JobTC.getResolver('removeMany'),
-  // jobsFix: JobTC.getResolver('jobsFix'),
+  jobsFix: JobTC.getResolver('jobsFix'),
 };
 
 export {JobQuery, JobMutation};

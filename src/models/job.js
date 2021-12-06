@@ -78,7 +78,7 @@ export const JobSchema = new Schema(
       type: Date,
       index: true
     },
-    callFor: {
+    callForPayment: {
       type: Boolean,
     },
     numberOfChildren: {
