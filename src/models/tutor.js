@@ -1,6 +1,6 @@
-import mongoose, {Schema} from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import timestamps from "mongoose-timestamp";
-import {composeWithMongoose} from "graphql-compose-mongoose";
+import { composeWithMongoose } from "graphql-compose-mongoose";
 
 const bankInfoSchema = new Schema({
   bankName: {
@@ -11,7 +11,7 @@ const bankInfoSchema = new Schema({
   },
 });
 
-export const TutorSchema = new Schema(
+const TutorSchema = new Schema(
   {
     firebaseID: {
       type: String,
@@ -71,7 +71,7 @@ export const TutorSchema = new Schema(
       type: String,
     },
     bankInfo: {
-      type: bankInfoSchema
+      type: bankInfoSchema,
     },
     serviceType: {
       type: [String],
@@ -136,6 +136,14 @@ export const TutorSchema = new Schema(
         },
       ],
     },
+    previousJobs: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Job",
+        },
+      ],
+    },
   },
   {
     collection: "tutors",
@@ -143,8 +151,9 @@ export const TutorSchema = new Schema(
 );
 
 TutorSchema.plugin(timestamps);
+TutorSchema.index({ createdAt: 1, updatedAt: 1 });
 
-TutorSchema.index({createdAt: 1, updatedAt: 1});
+const TutorModel = mongoose.model("Tutor", TutorSchema);
+const TutorTC = composeWithMongoose(TutorModel);
 
-export const Tutor = mongoose.model("Tutor", TutorSchema);
-export const TutorTC = composeWithMongoose(Tutor);
+export { TutorModel, TutorTC, TutorSchema };

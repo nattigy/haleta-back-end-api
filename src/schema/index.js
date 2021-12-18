@@ -1,8 +1,8 @@
-import {SchemaComposer} from "graphql-compose";
+import { SchemaComposer } from "graphql-compose";
 // import { UserQuery, UserMutation } from "./user";
-import {TutorMutation, TutorQuery} from "./tutor";
-import {JobMutation, JobQuery} from "./job";
-import {PaymentMutation, PaymentQuery} from "./payment";
+import { TutorMutation, TutorQuery } from "./tutors/tutor";
+import { JobMutation, JobQuery } from "./jobs/job";
+import { PaymentMutation, PaymentQuery } from "./payments/payment";
 
 // import db from "../utils/db"; // eslint-disable-line no-unused-vars
 
