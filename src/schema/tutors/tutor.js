@@ -19,7 +19,7 @@ const TutorQuery = {
   currentClients: TutorTC.addFields({
     currentClients: {
       type: "Int",
-      resolve: (tutor) => (tutor?.jobs ? tutor.jobs.length : 0),
+      resolve: (tutor) => (tutor ? tutor.jobs ? tutor.jobs.length : 0 : 0),
     },
   }),
 };
