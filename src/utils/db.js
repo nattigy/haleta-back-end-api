@@ -15,6 +15,7 @@ const connection = mongoose.connect(
     bufferMaxEntries: 0,
     keepAlive: 120,
     useNewUrlParser: true,
+      useUnifiedTopology: true
   }
 );
 
