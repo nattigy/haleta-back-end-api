@@ -1,6 +1,19 @@
 import { JobModel, JobTC } from "../../models/job";
 import { TutorModel } from "../../models/tutor";
 
+const jobsInfo = {
+  name: "jobsInfo",
+  kind: "mutation",
+  type: "JobsInfo",
+  args: {},
+  resolve: async () => {
+    const newJobs = await JobModel.find({status: "New"}).count();
+    const startedJobs = await JobModel.find({status: "Started"}).count();
+    const finishedJobs = await JobModel.find({status: "Done"}).count();
+    return {newJobs, startedJobs, finishedJobs};
+  },
+};
+
 const jobAssignTutor = {
   name: "jobAssignTutor",
   kind: "mutation",
@@ -64,4 +77,4 @@ const jobsFix = {
   },
 };
 
-export default { jobAssignTutor, jobRemoveTutor, jobsFix };
+export default { jobsInfo, jobAssignTutor, jobRemoveTutor, jobsFix };

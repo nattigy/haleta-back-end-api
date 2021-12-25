@@ -16,6 +16,7 @@ const JobQuery = {
   jobCount: JobTC.getResolver("count"),
   jobConnection: JobTC.getResolver("connection"),
   jobPagination: JobTC.getResolver("pagination"),
+  jobsInfo: JobTC.getResolver("jobsInfo"),
   jobPayments: JobTC.addRelation("payments", {
     resolver: () => PaymentTC.getResolver("findByIds"),
     prepareArgs: {

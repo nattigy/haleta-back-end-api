@@ -1,6 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 import timestamps from "mongoose-timestamp";
 import { composeWithMongoose } from "graphql-compose-mongoose";
+import { schemaComposer } from "graphql-compose";
+import { UserTC } from "./user.js";
 
 const ChildSchema = new Schema({
   hoursPerDay: {
@@ -123,5 +125,14 @@ JobSchema.index({ createdAt: 1, updatedAt: 1 });
 
 const JobModel = mongoose.model("Job", JobSchema);
 const JobTC = composeWithMongoose(JobModel);
+
+schemaComposer.createObjectTC({
+  name: "JobsInfo",
+  fields: {
+    newJobs: "Float!",
+    startedJobs: "Float!",
+    finishedJobs: "Float!",
+  },
+});
 
 export { JobModel, JobTC, JobSchema };
