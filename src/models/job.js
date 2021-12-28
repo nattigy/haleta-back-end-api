@@ -2,7 +2,6 @@ import mongoose, { Schema } from "mongoose";
 import timestamps from "mongoose-timestamp";
 import { composeWithMongoose } from "graphql-compose-mongoose";
 import { schemaComposer } from "graphql-compose";
-import { UserTC } from "./user.js";
 
 const ChildSchema = new Schema({
   hoursPerDay: {
@@ -67,7 +66,7 @@ const JobSchema = new Schema(
     tutorGender: {
       type: String,
     },
-    dateStarted: {
+    registrationDate: {
       type: Date,
     },
     dateFinished: {
@@ -117,11 +116,14 @@ const JobSchema = new Schema(
   },
   {
     collection: "jobs",
-  }
+  },
 );
 
 JobSchema.plugin(timestamps);
-JobSchema.index({ createdAt: 1, updatedAt: 1 });
+JobSchema.index({
+  createdAt: 1,
+  updatedAt: 1,
+});
 
 const JobModel = mongoose.model("Job", JobSchema);
 const JobTC = composeWithMongoose(JobModel);
