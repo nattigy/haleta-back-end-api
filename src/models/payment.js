@@ -1,8 +1,8 @@
-import mongoose, {Schema} from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import timestamps from "mongoose-timestamp";
-import {composeWithMongoose} from "graphql-compose-mongoose";
+import { composeWithMongoose } from "graphql-compose-mongoose";
 
-export const PaymentSchema = new Schema(
+const PaymentSchema = new Schema(
   {
     month: {
       type: String,
@@ -23,7 +23,7 @@ export const PaymentSchema = new Schema(
     },
     discount: {
       type: Number,
-      default: 0
+      default: 0,
     },
     netPayment: {
       type: Number,
@@ -46,12 +46,17 @@ export const PaymentSchema = new Schema(
   },
   {
     collection: "payments",
-  }
+  },
 );
 
 PaymentSchema.plugin(timestamps);
 
-PaymentSchema.index({createdAt: 1, updatedAt: 1});
+PaymentSchema.index({
+  createdAt: 1,
+  updatedAt: 1,
+});
 
-export const Payment = mongoose.model("Payment", PaymentSchema);
-export const PaymentTC = composeWithMongoose(Payment);
+const PaymentModel = mongoose.model("Payment", PaymentSchema);
+const PaymentTC = composeWithMongoose(PaymentModel);
+
+export { PaymentModel, PaymentTC, PaymentSchema };

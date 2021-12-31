@@ -52,6 +52,9 @@ const JobMutation = {
   jobsFix: JobTC.getResolver("jobsFix"),
   jobAssignTutor: JobTC.getResolver("jobAssignTutor"),
   jobRemoveTutor: JobTC.getResolver("jobRemoveTutor"),
+  jobStart: JobTC.getResolver("jobStart"),
+  makePayment: JobTC.getResolver("makePayment"),
+  startNextMonth: JobTC.getResolver("startNextMonth"),
 };
 
 export { JobQuery, JobMutation };

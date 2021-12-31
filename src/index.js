@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 // import bodyParser from "body-parser";
-import {ApolloServer} from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
 
 import "./utils/db";
 import schema from "./schema";
@@ -23,9 +23,9 @@ const server = new ApolloServer({
 server.applyMiddleware({
   app,
   path: "/",
-  cors: 'no-cors'
+  cors: 'no-cors',
 });
 
-app.listen({port: process.env.PORT}, () => {
+app.listen({ port: process.env.PORT }, () => {
   console.log(`🚀 Server listening on port ${process.env.PORT}`);
 });

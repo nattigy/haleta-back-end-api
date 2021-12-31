@@ -1,6 +1,12 @@
 import { TutorTC } from "../../models/tutor";
 import { JobTC } from "../../models/job";
 
+import Resolvers from "./resolvers";
+
+for (const resolver in Resolvers) {
+  TutorTC.addResolver(Resolvers[resolver]);
+}
+
 const TutorQuery = {
   tutorById: TutorTC.getResolver("findById"),
   tutorByIds: TutorTC.getResolver("findByIds"),
@@ -33,6 +39,7 @@ const TutorMutation = {
   tutorRemoveById: TutorTC.getResolver("removeById"),
   tutorRemoveOne: TutorTC.getResolver("removeOne"),
   tutorRemoveMany: TutorTC.getResolver("removeMany"),
+  resetTutors: TutorTC.getResolver("resetTutors"),
 };
 
 export { TutorQuery, TutorMutation };

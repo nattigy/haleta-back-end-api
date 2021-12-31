@@ -147,11 +147,14 @@ const TutorSchema = new Schema(
   },
   {
     collection: "tutors",
-  }
+  },
 );
 
 TutorSchema.plugin(timestamps);
-TutorSchema.index({ createdAt: 1, updatedAt: 1 });
+TutorSchema.index({
+  createdAt: 1,
+  updatedAt: 1,
+});
 
 const TutorModel = mongoose.model("Tutor", TutorSchema);
 const TutorTC = composeWithMongoose(TutorModel);

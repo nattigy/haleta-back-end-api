@@ -1,5 +1,143 @@
 import { JobModel, JobTC } from "../../models/job";
 import { TutorModel } from "../../models/tutor";
+import { PaymentModel } from "../../models/payment.js";
+
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const jobStart = {
+  name: "jobStart",
+  kind: "mutation",
+  type: JobTC,
+  args: {
+    jobId: "String!",
+    startDate: "String!",
+  },
+  resolve: async ({
+                    args: {
+                      jobId,
+                      startDate,
+                    },
+                  }) => {
+    const nextPayment = new Date(new Date(startDate).getTime() + 30 * 24 * 60 * 60 * 1000);
+    const payment = await PaymentModel.create({
+      month: months[new Date(nextPayment).getMonth()],
+      tutorPaid: false,
+      totalHours: 0,
+      amount: 0,
+      ourCut: 0,
+      netPayment: 0,
+      paymentAt: nextPayment,
+      depositedAt: null,
+      paidAt: null,
+      job: jobId,
+    });
+    await JobModel.findByIdAndUpdate(jobId, {
+      status: "Started",
+      startDate,
+      nextPayment,
+      callForPayment: false,
+      nextCall: new Date(new Date(startDate).getTime() + 15 * 24 * 60 * 60 * 1000),
+      $addToSet: { payments: payment._id },
+    });
+  },
+};
+
+const startNextMonth = {
+  name: "startNextMonth",
+  kind: "mutation",
+  type: JobTC,
+  args: {
+    jobId: "String!",
+    startDate: "String!",
+  },
+  resolve: async ({
+                    args: {
+                      jobId,
+                      startDate,
+                    },
+                  }) => {
+    const nextPayment = new Date(new Date(startDate).getTime() + 30 * 24 * 60 * 60 * 1000);
+    const payment = await PaymentModel.create({
+      month: months[new Date(nextPayment).getMonth()],
+      tutorPaid: false,
+      totalHours: 0,
+      amount: 0,
+      ourCut: 0,
+      netPayment: 0,
+      paymentAt: nextPayment,
+      depositedAt: null,
+      paidAt: null,
+      job: jobId,
+    });
+    await JobModel.findByIdAndUpdate(jobId, {
+      nextPayment,
+      callForPayment: false,
+      nextCall: new Date(new Date(startDate).getTime() + 15 * 24 * 60 * 60 * 1000),
+      $addToSet: { payments: payment._id },
+    });
+  },
+};
+
+const makePayment = {
+  name: "makePayment",
+  kind: "mutation",
+  type: JobTC,
+  args: {
+    jobId: "String!",
+    paymentId: "String!",
+    totalHours: "Float!",
+    amount: "Float!",
+    ourCut: "Float!",
+    netPayment: "Float!",
+    depositedAt: "String!",
+  },
+  resolve: async ({
+                    args: {
+                      jobId,
+                      paymentId,
+                      totalHours,
+                      amount,
+                      ourCut,
+                      netPayment,
+                      depositedAt,
+                    },
+                  }) => {
+    const payment = await PaymentModel.findByIdAndUpdate(paymentId, {
+      totalHours,
+      amount,
+      ourCut,
+      netPayment,
+      depositedAt,
+    });
+    await JobModel.findByIdAndUpdate(jobId, {
+      $addToSet: {
+        paymentsArchive: {
+          totalHours,
+          amount,
+          ourCut,
+          netPayment,
+          depositedAt,
+          month: payment.month,
+        },
+      },
+      $pull: { payments: paymentId },
+    });
+    await PaymentModel.findByIdAndDelete(paymentId);
+  },
+};
 
 const jobsInfo = {
   name: "jobsInfo",
@@ -28,7 +166,11 @@ const jobsInfo = {
         finishedJobsCount += 1;
     }
 
-    return { newJobs, startedJobs: startedJobsCount, finishedJobs: finishedJobsCount };
+    return {
+      newJobs,
+      startedJobs: startedJobsCount,
+      finishedJobs: finishedJobsCount,
+    };
   },
 };
 
@@ -40,16 +182,20 @@ const jobAssignTutor = {
     tutorId: "String!",
     jobId: "String!",
   },
-  resolve: async ({ args: { tutorId, jobId } }) => {
+  resolve: async ({
+                    args: {
+                      tutorId,
+                      jobId,
+                    },
+                  }) => {
     await TutorModel.findByIdAndUpdate(tutorId, {
       $addToSet: {
         jobs: jobId,
       },
     });
-    const job = await JobModel.findByIdAndUpdate(jobId, {
+    return JobModel.findByIdAndUpdate(jobId, {
       assignedTutor: tutorId,
     });
-    return job;
   },
 };
 
@@ -61,7 +207,12 @@ const jobRemoveTutor = {
     tutorId: "String!",
     jobId: "String!",
   },
-  resolve: async ({ args: { tutorId, jobId } }) => {
+  resolve: async ({
+                    args: {
+                      tutorId,
+                      jobId,
+                    },
+                  }) => {
     await TutorModel.findByIdAndUpdate(tutorId, {
       $pull: {
         jobs: jobId,
@@ -70,11 +221,10 @@ const jobRemoveTutor = {
         previousJobs: jobId,
       },
     });
-    const job = await JobModel.findByIdAndUpdate(jobId, {
+    return JobModel.findByIdAndUpdate(jobId, {
       assignedTutor: null,
       $addToSet: { previouslyAssignedTutors: tutorId },
     });
-    return job;
   },
 };
 
@@ -84,15 +234,23 @@ const jobsFix = {
   type: JobTC,
   args: {},
   resolve: async () => {
-    const jobs = await JobModel.find();
-    for (let i = 0; i < jobs.length; i++) {
-      if (jobs[i].assignedTutor !== null && jobs[i].status === "Started") {
-        await TutorModel.findByIdAndUpdate(jobs[i].assignedTutor, {
-          $addToSet: { jobs: jobs[i]._id },
-        });
+    const jobs = await JobModel.find()
+    jobs.map(async j => {
+      const jj = await JobModel.findById(j._id)
+      if (jj.registrationDate === "" || jj.registrationDate === null || jj.registrationDate === undefined){
+        jj.registrationDate = jj.startDate
+        await jj.save()
       }
-    }
+    })
   },
 };
 
-export default { jobsInfo, jobAssignTutor, jobRemoveTutor, jobsFix };
+export default {
+  jobStart,
+  jobsInfo,
+  jobAssignTutor,
+  jobRemoveTutor,
+  jobsFix,
+  makePayment,
+  startNextMonth,
+};

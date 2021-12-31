@@ -15,8 +15,8 @@ const connection = mongoose.connect(
     bufferMaxEntries: 0,
     keepAlive: 120,
     useNewUrlParser: true,
-      useUnifiedTopology: true
-  }
+    useUnifiedTopology: true,
+  },
 );
 
 mongoose.set("useCreateIndex", true);

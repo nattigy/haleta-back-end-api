@@ -3,6 +3,42 @@ import timestamps from "mongoose-timestamp";
 import { composeWithMongoose } from "graphql-compose-mongoose";
 import { schemaComposer } from "graphql-compose";
 
+const PaymentSchema = new Schema(
+  {
+    month: {
+      type: String,
+      trim: true,
+    },
+    tutorPaid: {
+      type: Boolean,
+      default: false,
+    },
+    totalHours: {
+      type: Number,
+    },
+    amount: {
+      type: Number,
+    },
+    ourCut: {
+      type: Number,
+    },
+    discount: {
+      type: Number,
+      default: 0,
+    },
+    netPayment: {
+      type: Number,
+    },
+    depositedAt: {
+      type: Date,
+      index: true,
+    },
+    paidAt: {
+      type: Date,
+    },
+  },
+);
+
 const ChildSchema = new Schema({
   hoursPerDay: {
     type: Number,
@@ -100,6 +136,10 @@ const JobSchema = new Schema(
           ref: "Payment",
         },
       ],
+    },
+    paymentsArchive: {
+      type: [PaymentSchema],
+      default: [],
     },
     assignedTutor: {
       type: Schema.Types.ObjectId,
