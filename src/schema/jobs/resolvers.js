@@ -148,8 +148,9 @@ const jobCreateSubJob = {
   },
   resolve: async ({ args: { jobId } }) => {
     const job = await JobModel.findById(jobId);
-    const newJob = await JobModel.create({
+    const obj = {
       ...job._doc,
+      _id: null,
       main: false,
       parentJob: job._id,
       assignedTutor: null,
@@ -157,7 +158,9 @@ const jobCreateSubJob = {
       subJobs: [],
       payments: [],
       paymentsArchive: [],
-    });
+    };
+    delete obj._id;
+    const newJob = await JobModel.create(obj);
     await JobModel.findByIdAndUpdate(jobId, {
       $addToSet: { subJobs: newJob._id },
     });
