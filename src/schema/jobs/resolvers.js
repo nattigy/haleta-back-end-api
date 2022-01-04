@@ -149,7 +149,7 @@ const jobCreateSubJob = {
   resolve: async ({ args: { jobId } }) => {
     const job = await JobModel.findById(jobId);
     const newJob = await JobModel.create({
-      ...job,
+      ...job._doc,
       main: false,
       parentJob: job._id,
       assignedTutor: null,
