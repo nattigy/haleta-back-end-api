@@ -123,6 +123,11 @@ const JobSchema = new Schema(
     },
     fromWeb: {
       type: Boolean,
+      default: false
+    },
+    main: {
+      type: Boolean,
+      default: true
     },
     status: {
       type: String,
