@@ -42,6 +42,7 @@ const JobQuery = {
 
 const JobMutation = {
   jobCreateOne: JobTC.getResolver("createOne"),
+  jobCreateSubJob: JobTC.getResolver("jobCreateSubJob"),
   jobCreateMany: JobTC.getResolver("createMany"),
   jobUpdateById: JobTC.getResolver("updateById"),
   jobUpdateOne: JobTC.getResolver("updateOne"),

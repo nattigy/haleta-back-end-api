@@ -149,6 +149,18 @@ const JobSchema = new Schema(
       type: [PaymentSchema],
       default: [],
     },
+    parentJob: {
+      type: Schema.Types.ObjectId,
+      ref: "Job",
+    },
+    subJobs: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Job",
+        }
+      ]
+    },
     assignedTutor: {
       type: Schema.Types.ObjectId,
       ref: "Tutor",

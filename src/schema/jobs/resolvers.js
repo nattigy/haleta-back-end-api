@@ -139,6 +139,32 @@ const makePayment = {
   },
 };
 
+const jobCreateSubJob = {
+  name: "jobCreateSubJob",
+  kind: "mutation",
+  type: JobTC,
+  args: {
+    jobId: "String!",
+  },
+  resolve: async ({ args: { jobId } }) => {
+    const job = await JobModel.findById(jobId);
+    const newJob = await JobModel.create({
+      ...job,
+      main: false,
+      parentJob: job._id,
+      assignedTutor: null,
+      previouslyAssignedTutors: [],
+      subJobs: [],
+      payments: [],
+      paymentsArchive: [],
+    });
+    await JobModel.findByIdAndUpdate(jobId, {
+      $addToSet: { subJobs: newJob._id },
+    });
+    return newJob;
+  },
+};
+
 const jobsInfo = {
   name: "jobsInfo",
   kind: "mutation",
@@ -234,14 +260,12 @@ const jobsFix = {
   type: JobTC,
   args: {},
   resolve: async () => {
-    const jobs = await JobModel.find()
+    const jobs = await JobModel.find();
     jobs.map(async j => {
-      const jj = await JobModel.findById(j._id)
-      if (jj.registrationDate === "" || jj.registrationDate === null || jj.registrationDate === undefined){
-        jj.registrationDate = jj.startDate
-        await jj.save()
-      }
-    })
+      await JobModel.findByIdAndUpdate(j._id, {
+        main: true,
+      });
+    });
   },
 };
 
@@ -253,4 +277,5 @@ export default {
   jobsFix,
   makePayment,
   startNextMonth,
+  jobCreateSubJob,
 };
