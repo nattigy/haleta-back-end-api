@@ -121,6 +121,9 @@ const JobSchema = new Schema(
     numberOfChildren: {
       type: Number,
     },
+    fromWeb: {
+      type: Boolean,
+    },
     status: {
       type: String,
       enum: ["Done", "Canceled", "Started", "New"],
