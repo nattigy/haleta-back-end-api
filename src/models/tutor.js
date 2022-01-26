@@ -114,6 +114,7 @@ const TutorSchema = new Schema(
     },
     totalHoursWorked: {
       type: Number,
+      index: true,
     },
     totalAmountEarned: {
       type: Number,
