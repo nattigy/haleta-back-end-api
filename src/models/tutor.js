@@ -147,7 +147,7 @@ const TutorSchema = new Schema(
     },
   },
   {
-    collection: "tutors",
+    collection: "tutor",
   },
 );
 
