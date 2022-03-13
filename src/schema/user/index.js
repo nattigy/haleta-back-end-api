@@ -1,3 +1,3 @@
-import {UserQuery, UserMutation} from "./resolvers"
+import {UserMutation, UserQuery} from "./resolvers"
 
 export {UserQuery, UserMutation}

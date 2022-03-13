@@ -6,10 +6,10 @@ import jwt from "jsonwebtoken";
 const resetPassword = {
     name: "resetPassword",
     type: "Succeed!",
-    args: { email: "String!" },
-    resolve: async ({ args: { email } }) => {
+    args: {email: "String!"},
+    resolve: async ({args: {email}}) => {
         try {
-            const user = await UserModel.findOne({ email });
+            const user = await UserModel.findOne({email});
             if (!user) {
                 return Promise.reject(new Error("User not found."));
             }
@@ -30,7 +30,7 @@ const resetPassword = {
 
             // userMail.resetPassword(user, token);
 
-            return { succeed: true };
+            return {succeed: true};
         } catch (error) {
             return Promise.reject(error);
         }
@@ -72,11 +72,11 @@ const newPassword = {
 
             await user.save();
 
-            const accessToken = await jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+            const accessToken = await jwt.sign({userId: user._id}, process.env.JWT_SECRET, {
                 expiresIn: process.env.JWT_EXPIRATION,
             });
 
-            return { accessToken };
+            return {accessToken};
         } catch (error) {
             return Promise.reject(error);
         }
@@ -95,7 +95,7 @@ const changePassword = {
                             currentPassword,
                             newPassword,
                         },
-                        context: { user },
+                        context: {user},
                     }) => {
         try {
             const comparePassword = await user.comparePassword(currentPassword);
@@ -105,11 +105,11 @@ const changePassword = {
 
             const hash = bcrypt.hashSync(newPassword, 10);
 
-            user.set({ password: hash });
+            user.set({password: hash});
 
             await user.save();
 
-            return { succeed: true };
+            return {succeed: true};
         } catch (error) {
             return Promise.reject(error);
         }

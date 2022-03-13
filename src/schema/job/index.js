@@ -1,3 +1,3 @@
-import { JobQuery, JobMutation  } from "./resolvers";
+import {JobMutation, JobQuery} from "./resolvers";
 
-export { JobQuery, JobMutation  };
+export {JobQuery, JobMutation};

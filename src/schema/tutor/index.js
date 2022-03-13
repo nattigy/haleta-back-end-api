@@ -1,3 +1,3 @@
-import { TutorQuery, TutorMutation } from "./resolvers";
+import {TutorMutation, TutorQuery} from "./resolvers";
 
-export { TutorQuery, TutorMutation };
+export {TutorQuery, TutorMutation};

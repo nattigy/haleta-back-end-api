@@ -1,11 +1,10 @@
-import { TutorTC } from "../../models/tutor";
-import { JobTC } from "../../models/job";
+import {TutorTC} from "../../../models/tutor";
 
-import Resolvers from "./services";
-
-for (const resolver in Resolvers) {
-    TutorTC.addResolver(Resolvers[resolver]);
-}
+// import Resolvers from "./services";
+//
+// for (const resolver in Resolvers) {
+//     TutorTC.addResolver(Resolvers[resolver]);
+// }
 
 const TutorQuery = {
     tutorById: TutorTC.getResolver("findById"),
@@ -15,19 +14,6 @@ const TutorQuery = {
     tutorCount: TutorTC.getResolver("count"),
     tutorConnection: TutorTC.getResolver("connection"),
     tutorPagination: TutorTC.getResolver("pagination"),
-    tutorJobs: TutorTC.addRelation("jobs", {
-        resolver: () => JobTC.getResolver("findByIds"),
-        prepareArgs: {
-            _ids: (source) => source.jobs,
-        },
-        projection: { jobs: 1 },
-    }),
-    currentClients: TutorTC.addFields({
-        currentClients: {
-            type: "Int",
-            resolve: (tutor) => (tutor ? tutor.jobs ? tutor.jobs.length : 0 : 0),
-        },
-    }),
 };
 
 const TutorMutation = {
@@ -39,7 +25,6 @@ const TutorMutation = {
     tutorRemoveById: TutorTC.getResolver("removeById"),
     tutorRemoveOne: TutorTC.getResolver("removeOne"),
     tutorRemoveMany: TutorTC.getResolver("removeMany"),
-    resetTutors: TutorTC.getResolver("resetTutors"),
 };
 
-export { TutorQuery, TutorMutation };
+export {TutorQuery, TutorMutation};

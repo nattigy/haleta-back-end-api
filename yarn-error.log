@@ -1,5 +1,5 @@
 Arguments: 
-  /snap/node/5953/bin/node /usr/local/bin/yarn add apollo-server
+  /snap/node/5953/bin/node /usr/local/bin/yarn add cookie-parser
 
 PATH: 
   /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/nathnael/projects/haleta/haleta-back-end-api/node_modules/.bin
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/home/nathnael/projects/haleta/haleta-back-end-api/node_modules/@firebase/component/CHANGELOG.md'
+  Error: EACCES: permission denied, unlink '/home/nathnael/projects/haleta/haleta-back-end-api/node_modules/@firebase/auth-interop-types/CHANGELOG.md'
 
 npm manifest: 
   {

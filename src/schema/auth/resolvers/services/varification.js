@@ -1,13 +1,13 @@
 const verifyRequest = {
     name: "verifyRequest",
     type: "Succeed!",
-    resolve: async ({ context: { user } }) => {
+    resolve: async ({context: {user}}) => {
         try {
             // await userService.verifyRequest(user);
 
             // userMail.verifyRequest(user, token);
 
-            return { succeed: true };
+            return {succeed: true};
         } catch (error) {
             return Promise.reject(error);
         }
@@ -17,8 +17,8 @@ const verifyRequest = {
 const verify = {
     name: "verify",
     type: "AccessToken!",
-    args: { token: "String!" },
-    resolve: async ({ args: { token } }) => {
+    args: {token: "String!"},
+    resolve: async ({args: {token}}) => {
         try {
             // const user = await UserModel.findOne({
             //   "account.verification.token": token,

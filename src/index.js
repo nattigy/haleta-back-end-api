@@ -1,49 +1,49 @@
 import dotenv from "dotenv";
 import express from "express";
-import { ApolloServer } from "apollo-server-express";
+import {ApolloServer} from "apollo-server-express";
 import schema from "./schema";
-import { userService } from "./utils/user-service";
-import { authentication } from "./middlewares/auth/authentication";
+import validateToken from "./middlewares/auth/validate-token";
+import cookieParser from "cookie-parser";
 import "./config/mongodb-config";
 
 dotenv.config();
 const app = express();
 
 async function startApolloServer() {
-  const server = new ApolloServer({
-    schema,
-    playground: true,
-    introspection: true,
-    tracing: true,
-    path: "/",
-    context: ({ req }) => {
-      // console.log("user from req :", req.user)
-      const token = req.headers.authorization || "";
-      return {
-        user: userService.getUser(token.replace("Bearer ", "")) || null,
-        headers: req.headers,
-        accessToken: req.headers.authorization,
-        phoneVerification: req.headers.phoneverification || "",
-      };
-    },
-  });
+    const server = new ApolloServer({
+        schema,
+        playground: true,
+        introspection: true,
+        tracing: true,
+        path: "/",
+        context: ({req}) => {
+            // const token = req.headers.authorization || "";
+            return {
+                user: req.headers.user,
+                headers: req.headers,
+                phoneVerification: req.headers.phoneverification || "",
+            };
+        },
+    });
 
-  await server.start();
+    app.use(cookieParser())
+    app.use(validateToken)
 
-  server.applyMiddleware({
-    app,
-    path: "/",
-    cors: "no-cors",
-    authentication,
-  });
+    await server.start();
 
-  app.listen({ port: process.env.PORT }, () => {
-    console.log(`🚀 Server listening on port ${process.env.PORT}`);
-  });
+    server.applyMiddleware({
+        app,
+        path: "/",
+        cors: "no-cors",
+    });
+
+    app.listen({port: process.env.PORT}, () => {
+        console.log(`🚀 Server listening on port ${process.env.PORT}`);
+    });
 }
 
-startApolloServer().then(r => {
-  // console.log(r);
+startApolloServer().then(() => {
+    console.log("Apollo serer started");
 }).catch((err) => {
-  console.log(`🚀 Server Error: ${err.message}`);
+    console.log(`🚀 Server Error: ${err.message}`);
 })
